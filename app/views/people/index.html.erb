@@ -1,0 +1,51 @@
+<% if flash.now[:alert] %>
+  <div class="alert alert-danger">
+    <%= flash.now[:alert] %>
+  </div>
+<% end %>
+
+<p id="notice" class="alert alert-info"><%= notice %></p>
+
+<h1 class="text-center">People</h1>
+
+<table class="table">
+  <thead class="thead-dark">
+    <tr>
+      <th>Salutation</th>
+      <th>First name</th>
+      <th>Middle name</th>
+      <th>Last name</th>
+      <th>SSN</th>
+      <th>Birth date</th>
+      <th>Comment</th>
+      <th>Email</th>
+      <th>Phone Numbers</th>
+      <th>Address</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @people.each do |person| %>
+      <tr>
+        <td><%= person.salutation %></td>
+        <td><%= person.first_name %></td>
+        <td><%= person.middle_name %></td>
+        <td><%= person.last_name %></td>
+        <td><%= person.ssn %></td>
+        <td><%= person.birth_date %></td>
+        <td><%= person.comment %></td>
+        <td><%= person.emails&.first&.email %></td>
+        <td><%= person.phone_numbers&.first&.number %></td>
+        <td><%= person.addresses&.first&.street %></td>
+        <td><%= link_to 'Show', person, class: "btn btn-primary" %></td>
+        <td><%= link_to 'Edit', edit_person_path(person), class: "btn btn-warning" %></td>
+        <td><%= link_to 'Destroy', person, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-danger" %>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Person', new_person_path, class: "btn btn-success" %>

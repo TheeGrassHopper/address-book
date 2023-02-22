@@ -1,0 +1,25 @@
+// Place all the styles related to the People controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: https://sass-lang.com/
+
+.tooltip {
+  position: relative;
+}
+
+.tooltip::before {
+  content: "This is an example hover text";
+  position: absolute;
+  bottom: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  padding: 0.5rem;
+  background-color: #000;
+  color: #fff;
+  border-radius: 0.25rem;
+  opacity: 0;
+  transition: opacity 0.2s ease-in-out;
+}
+
+.tooltip:hover::before {
+  opacity: 1;
+}

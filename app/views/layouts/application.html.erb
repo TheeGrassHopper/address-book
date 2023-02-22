@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>AddressBook</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+
+    <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= stylesheet_pack_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
+  </head>
+
+  <body>
+    <header>
+      <% if @current_user %>
+        Logged in as <%= @current_user.email %>
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+          <a class="navbar-brand" href="#">Address Book</a>
+          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav mr-auto">
+              <li class="nav-brand active">
+                <%= link_to "Home", root_path, class: "nav-link", data: { turbolinks_track: "reload" } %>
+              </li>
+              <li class="nav-brand">
+                <%= link_to "Address Book", people_path, class: "nav-link", data: { turbolinks_track: "reload" } %>
+              </li>
+            </ul>
+            <ul class="navbar-nav ml-auto">
+              <li class="nav-item">
+                <%= button_to "Logout", logout_path, method: :delete, class: "btn btn-outline-secondary" %> 
+              </li>
+            </ul>
+          </div>
+        </nav>
+      <% else %>
+        Please Login
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+          <a class="navbar-brand" href="/">Address Book</a>
+          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav mr-auto">
+              <li class="nav-item">
+                <%= link_to "Login", login_path, class: "nav-link", data: { turbolinks_track: "reload" } %>
+              </li>
+              <li class="nav-item">
+                <%= link_to "SignUp", new_user_path, class: "nav-link", data: { turbolinks_track: "reload" } %>
+              </li>
+            </ul>
+          </div>
+        </nav>
+      <% end %>
+    </header>
+
+
+    <div class="content">
+    <%= request.path == root_path ? nil : yield %>
+    </div>
+  </body>
+</html>

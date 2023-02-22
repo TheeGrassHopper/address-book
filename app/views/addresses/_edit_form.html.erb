@@ -1,0 +1,42 @@
+<%= form_with(model: @address, url: person_address_path(params[:person_id], @address)) do |form| %>
+  <% if @address.errors.any? %>
+    <div class="alert alert-danger">
+      <h4><%= pluralize(@address.errors.count, "error") %> prohibited this address from being saved:</h4>
+
+      <ul>
+        <% @address.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="form-group">
+    <%= form.label :street %>
+    <%= form.text_field :street, class: 'form-control' %>
+  </div>
+
+  <div class="form-group">
+    <%= form.label :town %>
+    <%= form.text_field :town, class: 'form-control' %>
+  </div>
+
+  <div class="form-group">
+    <%= form.label :zip_code %>
+    <%= form.text_field :zip_code, class: 'form-control' %>
+  </div>
+
+  <div class="form-group">
+    <%= form.label :state %>
+    <%= form.text_field :state, class: 'form-control' %>
+  </div>
+
+  <div class="form-group">
+    <%= form.label :country %>
+    <%= form.select :country, options_for_select(['USA', 'Canada', 'Mexico', 'France', 'Germany']), { include_blank: true }, class: 'form-control' %>
+  </div>
+
+  <div class="form-group">
+    <%= form.submit 'Save', class: 'btn btn-primary' %>
+  </div>
+<% end %>
