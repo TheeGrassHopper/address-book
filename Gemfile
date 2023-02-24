@@ -3,14 +3,14 @@
 source 'https://rubygems.org'
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
-ruby "2.5.0", :buildpack => "heroku/ruby"
+ruby '2.5.0', buildpack: 'heroku/ruby'
 gem 'bcrypt', '~> 3.1.7'
 gem 'bootstrap-sass'
+gem 'factory_bot_rails'
 gem 'jquery-rails'
 gem 'popper_js'
 gem 'pry'
 gem 'rspec-rails'
-gem 'factory_bot_rails'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails', branch: 'main'
 gem 'rails', '~> 6.1.7', '>= 6.1.7.1'

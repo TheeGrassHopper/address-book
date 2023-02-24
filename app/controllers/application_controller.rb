@@ -2,9 +2,10 @@
 
 class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
-  before_action :current_user
   before_action :require_login, except: [:dashboard]
   before_action :authorize_admin, only: %i[create edit update destroy]
+  before_action :current_user
+  skip_before_action :verify_authenticity_token
 
   def dashboard
     render('layouts/application')

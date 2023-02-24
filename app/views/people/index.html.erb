@@ -8,7 +8,7 @@
 
 <h1 class="text-center">People</h1>
 
-<table class="table">
+<table class="table table-striped">
   <thead class="thead-dark">
     <tr>
       <th>Salutation</th>
@@ -25,7 +25,7 @@
     </tr>
   </thead>
 
-  <tbody>
+  <tbody class="table-striped">
     <% @people.each do |person| %>
       <tr>
         <td><%= person.salutation %></td>
@@ -48,4 +48,4 @@
 
 <br>
 
-<%= link_to 'New Person', new_person_path, class: "btn btn-success" %>
+<%= link_to 'New Person', new_person_path, class: "btn btn-info" %>

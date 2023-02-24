@@ -1,82 +1,102 @@
 <p id="notice" class="alert alert-info"><%= notice %></p>
+<div class="container">
+  <div class="row justify-content-end">
+    <div class="col-12">
+      <div>
+        <p>
+          <strong class="text-primary">Salutation:</strong>
+          <%= @person.salutation %>
+        </p>
 
-<p>
-  <strong class="text-primary">Salutation:</strong>
-  <%= @person.salutation %>
-</p>
+        <p>
+          <strong class="text-primary">First name:</strong>
+          <%= @person.first_name %>
+        </p>
 
-<p>
-  <strong class="text-primary">First name:</strong>
-  <%= @person.first_name %>
-</p>
+        <p>
+          <strong class="text-primary">Middle name:</strong>
+          <%= @person.middle_name %>
+        </p>
 
-<p>
-  <strong class="text-primary">Middle name:</strong>
-  <%= @person.middle_name %>
-</p>
+        <p>
+          <strong class="text-primary">Last name:</strong>
+          <%= @person.last_name %>
+        </p>
 
-<p>
-  <strong class="text-primary">Last name:</strong>
-  <%= @person.last_name %>
-</p>
+        <p>
+          <strong class="text-primary">Ssn:</strong>
+          <%= @person.ssn %>
+        </p>
 
-<p>
-  <strong class="text-primary">Ssn:</strong>
-  <%= @person.ssn %>
-</p>
+        <p>
+          <strong class="text-primary">Birth date:</strong>
+          <%= @person.birth_date %>
+        </p>
 
-<p>
-  <strong class="text-primary">Birth date:</strong>
-  <%= @person.birth_date %>
-</p>
-
-<p>
-  <strong class="text-primary">Comment:</strong>
-  <%= @person.comment %>
-</p>
-
-<div>
-  <p>
-    <strong class="text-primary">Addresses:</strong>
-    <%= link_to 'Add a New addresses', new_person_address_path(@person), class: "btn btn-sm btn-primary" %>
-  </p>
-  <ol>
-    <% @person.addresses.each do |address| %>
-      <li><%= link_to address.street, person_address_path(@person, address), class: "text-info" %> | 
-      <%= link_to "Edit", edit_person_address_url(@person, address), class: "btn btn-sm btn-secondary" %> | 
-      <%= link_to "Delete", person_address_path(@person, address), method: :delete, data: { confirm: "Are you sure you want to delete this post?" }, class: "btn btn-sm btn-danger" %>
-      </li>
-    <% end %>
-  </ol>
+        <p>
+          <strong class="text-primary">Comment:</strong>
+          <%= @person.comment %>
+        </p>
+      </div>
+    </div>
+  </div>
 </div>
 
-<div>
-  <p>
-    <strong class="text-primary">Emails:</strong>
-    <%= link_to 'Add a New Email', new_person_email_path(@person), class: "btn btn-sm btn-primary" %>
-  </p>
-  <ol>
-    <% @person.emails.each do |email| %> 
-      <li><%= email.email %> | <%= link_to "Edit", edit_person_email_path(@person, email), class: "btn btn-sm btn-secondary" %> | 
-      <%= link_to "Delete", person_email_path(@person, email), method: :delete, data: { confirm: "Are you sure you want to delete this post?" }, class: "btn btn-sm btn-danger" %>  
-      </li> 
-      <strong class="text-info">Comment: <%= email.comment %></strong><br/>
-    <% end %>
-  </ol>
+<div class="container">
+  <div class="row">
+    <div class="col">
+      <div>
+        <p>
+          <strong class="text-primary">Addresses:</strong>
+          <%= link_to 'Add a New addresses', new_person_address_path(@person), class: "btn btn-sm btn-primary" %>
+        </p>
+        <ol>
+          <% @person.addresses.each do |address| %>
+            <li><%= link_to address.street, person_address_path(@person, address), class: "text-info" %> | 
+            <%= link_to "Edit", edit_person_address_url(@person, address), class: "btn btn-sm btn-secondary" %> | 
+            <%= link_to "Delete", person_address_path(@person, address), method: :delete, data: { confirm: "Are you sure you want to delete this post?" }, class: "btn btn-sm btn-danger" %>
+            </li>
+          <% end %>
+        </ol>
+      </div>
+    </div>
+    <div class="col">
+      <div>
+        <p>
+          <strong class="text-primary">Phone Number:</strong>
+          <%= link_to 'Add a New Phone Number', new_person_phone_number_path(@person), class: "btn btn-sm btn-primary" %>
+        </p>
+        <ol>
+          <% @person.phone_numbers.each do |phone_number| %>
+            <li><%= phone_number.number %> | <%= link_to "Edit", edit_person_phone_number_path(@person, phone_number), class: "btn btn-sm btn-secondary" %> | <%= link_to "Delete", person_phone_numbers_path(@person, phone_number), method: :delete, data: { confirm: "Are you sure you want to delete this post?" }, class: "btn btn-sm btn-danger" %></li>
+            <strong class="text-info">Comment: <%= phone_number.comment %></strong>
+        <% end %>
+        </ol>
+      </div>
+    </div>
+    <div class="col">
+      <div>
+        <p>
+          <strong class="text-primary">Emails:</strong>
+          <%= link_to 'Add a New Email', new_person_email_path(@person), class: "btn btn-sm btn-primary" %>
+        </p>
+        <ol>
+          <% @person.emails.each do |email| %> 
+            <li><%= email.email %> | <%= link_to "Edit", edit_person_email_path(@person, email), class: "btn btn-sm btn-secondary" %> | 
+            <%= link_to "Delete", person_email_path(@person, email), method: :delete, data: { confirm: "Are you sure you want to delete this post?" }, class: "btn btn-sm btn-danger" %>  
+            </li> 
+            <strong class="text-info">Comment: <%= email.comment %></strong><br/>
+          <% end %>
+        </ol>
+      </div>
+    </div>
+  </div>
 </div>
 
-<div>
-  <p>
-    <strong class="text-primary">Phone Number:</strong>
-    <%= link_to 'Add a New Phone Number', new_person_phone_number_path(@person), class: "btn btn-sm btn-primary" %>
-  </p>
-  <ol>
-    <% @person.phone_numbers.each do |phone_number| %>
-      <li><%= phone_number.number %> | <%= link_to "Edit", edit_person_phone_number_path(@person, phone_number), class: "btn btn-sm btn-secondary" %> | <%= link_to "Delete", person_phone_numbers_path(@person, phone_number), method: :delete, data: { confirm: "Are you sure you want to delete this post?" }, class: "btn btn-sm btn-danger" %></li>
-      <strong class="text-info">Comment: <%= phone_number.comment %></strong>
-  <% end %>
-  </ol>
-</div>
+
+
+
+
 
 <%= link_to 'Edit', edit_person_path(@person), class: 'btn btn-sm btn-primary' %>
 <%= link_to 'Back', people_path, class: 'btn btn-sm btn-light' %> 

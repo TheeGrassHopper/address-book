@@ -10,4 +10,6 @@ class Person < ApplicationRecord
   validates :ssn, uniqueness: { on: %i[create update], message: 'must be unique' }
   validates :ssn, length: { maximum: 9 }
   validates :salutation,  inclusion: { in: ['Mr.', 'Ms.', 'Mrs.'] }
+
+  accepts_nested_attributes_for :addresses, :phone_numbers, :emails
 end

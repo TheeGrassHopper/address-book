@@ -57,9 +57,12 @@
       <% end %>
     </header>
 
-
     <div class="content">
-    <%= request.path == root_path ? nil : yield %>
+      <% if request.path == root_path %>
+        <p>lets go, Please sign-up or sign-in</p>
+      <% else %>
+        <%= yield %>
+      <% end %>
     </div>
   </body>
 </html>

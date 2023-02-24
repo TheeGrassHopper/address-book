@@ -5,6 +5,11 @@ class PeopleController < ApplicationController
 
   def index
     @people = Person.all
+
+    respond_to do |format|
+      format.html
+      format.json { render(:index) }
+    end
   end
 
   def show; end
@@ -58,6 +63,8 @@ class PeopleController < ApplicationController
   end
 
   def person_params
-    params.require(:person).permit(:salutation, :first_name, :middle_name, :last_name, :ssn, :birth_date, :comment)
+    params.require(:person).permit(:id, :salutation, :first_name, :middle_name, :last_name, :ssn, :birth_date, :comment,
+                                   emails_attributes: %i[id email comment], phone_numbers_attributes: %i[id number comment], addresses_attributes: %i[id street town zip_code state country]
+    )
   end
 end
