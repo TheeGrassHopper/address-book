@@ -1,16 +1,12 @@
-# frozen_string_literal: true
-
-# spec/requests/application_controller_spec.rb
-
 require 'rails_helper'
 
 RSpec.describe(ApplicationController, type: :request) do
   describe '#dashboard' do
     context 'when user is logged in' do
-      let(:user) { create(:user) }
+      let(:admin) { create(:user, role: 'admin') }
 
       before do
-        post login_path, params: { email: user.email, password: user.password }
+        post login_path, params: { email: admin.email, role: admin.role, password: admin.password }
         get root_path
       end
 
@@ -34,9 +30,9 @@ RSpec.describe(ApplicationController, type: :request) do
 
   describe 'before_action :require_login' do
     context 'when user is logged in' do
-      let(:user) { create(:user) }
+      let(:admin) { create(:user, role: 'Admin') }
 
-      before { post login_path, params: { email: user.email, password: user.password } }
+      before { post login_path, params: { email: admin.email, role: admin.role, password: admin.password } }
 
       it 'does not redirect' do
         get people_path
@@ -62,7 +58,7 @@ RSpec.describe(ApplicationController, type: :request) do
       let(:admin) { create(:user, role: 'admin') }
 
       before do
-        post login_path, params: { email: admin.email, password: admin.password }
+        post login_path, params: { email: admin.email, role: admin.role, password: admin.password }
         get edit_person_path(create(:person))
       end
 
@@ -72,10 +68,10 @@ RSpec.describe(ApplicationController, type: :request) do
     end
 
     context 'when user is not an admin' do
-      let(:user) { create(:user, role: 'user') }
+      let(:guest) { create(:user, role: 'guest') }
 
       before do
-        post login_path, params: { email: user.email, password: user.password }
+        post login_path, params: { email: guest.email, role: guest.role, password: guest.password }
         get edit_person_path(create(:person))
       end
 

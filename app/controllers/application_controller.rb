@@ -2,10 +2,9 @@
 
 class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
+  before_action :set_current_user
   before_action :require_login, except: [:dashboard]
   before_action :authorize_admin, only: %i[create edit update destroy]
-  before_action :current_user
-  skip_before_action :verify_authenticity_token
 
   def dashboard
     render('layouts/application')
@@ -22,13 +21,13 @@ class ApplicationController < ActionController::Base
   end
 
   def authorize_admin
-    unless current_user.role.casecmp('admin').zero?
+    unless @current_user.role.casecmp('admin').zero?
       redirect_to(people_path)
       flash[:alert] = 'You are not authorized to perform this action'
     end
   end
 
-  def current_user
+  def set_current_user
     @current_user ||= User.find(session[:user_id]) if session[:user_id]
   end
 end
