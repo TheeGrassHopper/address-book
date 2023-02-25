@@ -15,42 +15,66 @@ Turbolinks.start()
 ActiveStorage.start()
 
 
-// $(document).ready(function() {
-//   // Attach a click listener to a button with the ID 'my-button'
-//   $('#login').click(function() {
-//     // Make an API call when the button is c
-//     console.log("login")
-//     $.ajax({
-//       type: 'GET',
-//       url: '/login/new', // Replace with the URL of your API endpoint
-//       success: function(data) {
-//         // Handle the API response data here
-//         console.log('API call successful!');
-//         console.log(data);
-//       },
-//       error: function(jqXHR, textStatus, errorThrown) {
-//         // Handle any errors that occur during the API call
-//         console.error('API call failed:', textStatus, errorThrown);
-//       }
-//     });
-//   });
+$(document).ready(function() {
+  // Attach a click listener to a button with the ID 'my-button'
+  $('#get-people').on('click', (function(event) {
+    event.preventDefault();
+    // Make an API call when the button is c
+    console.log("People button clicked")
+    $.ajax({
+      type: 'GET',
+       dateType: 'json',
+      url: '/people.json',
+      success: function(data) {
+        // Handle the API response data here
+        console.log('API call successful!');
+        console.log(data);
+        window.location.href = "/people.json"
+      },
+      error: function(jqXHR, textStatus, errorThrown) {
+        // Handle any errors that occur during the API call
+        console.error('API call failed:', textStatus, errorThrown);
+      }
+    });
+  }));
 
 
-//   $('#home').click(function() {
-//     // Make an API call when the button is c
-//     console.log("home")
-//     $.ajax({
-//       type: 'GET',
-//       url: '/people', // Replace with the URL of your API endpoint
-//       success: function(data) {
-//         // Handle the API response data here
-//         console.log('API call successful!');
-//         console.log(data);
-//       },
-//       error: function(jqXHR, textStatus, errorThrown) {
-//         // Handle any errors that occur during the API call
-//         console.error('API call failed:', textStatus, errorThrown);
-//       }
-//     });
-//   });
-// });
+  $('#create-person').on('click', function(event) {
+    event.preventDefault();
+    let salutation = $('#salutation').val();
+    let first_name = $('#first-name').val();
+    let last_name = $('#last-name').val();
+    let middle_name = $('#middle-name').val();
+    let ssn = $('#ssn').val();
+    let birth_date = $('#birth-date').val();
+    let comment = $('#comment').val();
+
+
+    $.ajax({
+      url: '/people',
+      method: 'POST',
+      dataType: "json",
+      data: {
+        person: {
+          salutation: salutation,
+          first_name: first_name,
+          middle_name: middle_name,
+          last_name: last_name,
+          ssn: ssn,
+          birth_date: birth_date,
+          comment: comment
+        }
+      },
+      success: function(data) {
+        
+        console.log('API call successful!');
+        console.log(data);
+        window.location.href = "/people";
+      },
+      error: function(jqXHR, textStatus, errorThrown) {
+        // Handle any errors that occur during the API call
+        console.error('API call failed:', textStatus, errorThrown);
+      }
+    });
+  });
+});

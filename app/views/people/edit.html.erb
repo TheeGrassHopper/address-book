@@ -1,6 +1,83 @@
 <h1>Editing Person</h1>
 
-<%= render 'form', person: @person %>
+<% if @person.errors.any? %>
+  <div id="error_explanation" class="alert alert-danger">
+    <h2><%= pluralize(@person.errors.count, "error") %> prohibited this person from being saved:</h2>
+
+    <ul>
+      <% @person.errors.each do |error| %>
+        <li><%= error.full_message %></li>
+      <% end %>
+    </ul>
+  </div>
+<% end %>
+
+<form action="/people/<%= @person.id %>" method="post" class="form-horizontal">
+  <input type="hidden" name="_method" value="patch">
+  <div id="error_explanation" class="alert alert-danger" style="display:none;">
+    <h2><span id="error_count"></span> error(s) prohibited this person from being saved:</h2>
+    <ul id="error_list"></ul>
+  </div>
+
+  <div class="form-group">
+    <label for="salutation" class="col-sm-2 control-label">Salutation</label>
+    <div class="col-sm-10">
+      <select name="person[salutation]" id="salutation" class="form-control">
+         <option value="Mr." <% if @person.salutation == "Mr." %>selected<% end %>>Mr.</option>
+    <option value="Mrs." <% if @person.salutation == "Mrs." %>selected<% end %>>Mrs.</option>
+    <option value="Ms." <% if @person.salutation == "Ms." %>selected<% end %>>Ms.</option>
+      </select>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label for="first-name" class="col-sm-2 control-label">First Name</label>
+    <div class="col-sm-10">
+      <input type="text" name="person[first_name]" id="first-name" class="form-control" value="<%= @person.first_name %>">
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label for="middle-name" class="col-sm-2 control-label">Middle Name</label>
+    <div class="col-sm-10">
+      <input type="text" name="person[middle_name]" id="middle-name" class="form-control" value="<%= @person.middle_name %>">
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label for="last-name" class="col-sm-2 control-label">Last Name</label>
+    <div class="col-sm-10">
+      <input type="text" name="person[last_name]" id="last-name" class="form-control" value="<%= @person.last_name %>">
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label for="ssn" class="col-sm-2 control-label">SSN</label>
+    <div class="col-sm-10">
+      <input type="text" name="person[ssn]" id="ssn" class="form-control" value="<%= @person.ssn %>">
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label for="birth-date" class="col-sm-2 control-label">Birth Date</label>
+    <div class="col-sm-10">
+     <input type="date" id="birthday" class="form-control" name="person[birth_date]" value="<%= @person.birth_date %>">
+    </div>  
+  </div>
+
+   <div class="form-group">
+    <label for="comment" class="col-sm-2 control-label">Comment</label>
+    <div class="col-sm-10">
+      <input type="text" name="person[comment]" id="comment" class="form-control" value="<%= @person.comment %>">
+    </div>
+  </div>
+   
+   <div class="form-group">
+    <div class="col-sm-offset-2 col-sm-10">
+      <button class='btn btn-primary', id="edit-person">Submit</button>
+    </div>
+  </div>
+</form>
 
 <%= link_to 'Show', @person %> |
 <%= link_to 'Back', people_path %>

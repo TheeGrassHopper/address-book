@@ -59,7 +59,9 @@
 
     <div class="content">
       <% if request.path == root_path %>
-        <p>lets go, Please sign-up or sign-in</p>
+        <div>
+          <p>lets go, Please sign-up or sign-in</p>
+        </div>
       <% else %>
         <%= yield %>
       <% end %>
