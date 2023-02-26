@@ -9,7 +9,7 @@
 #   Character.create(name: 'Luke', movie: movies.first)
 
 homer = User.create!(email: 'homer@simpsons.com', role: 'Admin', password: '123456789')
-marge = User.create!(email: 'marge@simpsons.com', role: 'Guest', password: '123456789'.reverse)
+_marge = User.create!(email: 'marge@simpsons.com', role: 'Guest', password: '123456789'.reverse)
 
 10.times do
   person = Person.create!(

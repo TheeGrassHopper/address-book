@@ -3,17 +3,20 @@
 class SessionsController < ApplicationController
   skip_before_action :require_login
   skip_before_action :authorize_admin
+  skip_before_action :set_current_user
   before_action :session_params, only: :create
 
-  def new; end
+  def new
+    
+  end
 
   def create
     user = User.find_by(email: params[:email])
-  
+    
     if user&.authenticate(params[:password]) && user.role.casecmp(params[:role]).zero?
       session[:user_id] = user.id
       @current_user = user
-
+    
       redirect_to(people_path)
     else
       flash.now[:alert] = 'email or password or role is invalid'

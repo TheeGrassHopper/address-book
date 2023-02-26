@@ -7,8 +7,8 @@ Rails.application.routes.draw do
   delete '/logout', to: 'sessions#destroy'
 
   resources :people do
-    resources :emails
-    resources :phone_numbers
+    resources :emails, execpt: %i[show]
+    resources :phone_numbers, execpt: %i[show]
     resources :addresses
   end
 

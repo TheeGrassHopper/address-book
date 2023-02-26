@@ -21,7 +21,7 @@ class PeopleController < ApplicationController
   def edit; end
 
   def create
-    update_person_params = person_params.merge(user_id: current_user.id) unless session[:user_id].nil?
+    update_person_params = person_params.merge(user_id: @current_user.id) unless session[:user_id].nil?
     @person = Person.new(update_person_params)
 
     respond_to do |format|

@@ -5,7 +5,7 @@ class CreatePeople < ActiveRecord::Migration[6.1]
       t.string :first_name
       t.string :middle_name
       t.string :last_name
-      t.string :ssn
+      t.string :ssn, unique: true
       t.date :birth_date
       t.text :comment
 

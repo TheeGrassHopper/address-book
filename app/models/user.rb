@@ -4,9 +4,9 @@ class User < ApplicationRecord
   # include BCrypt
   has_secure_password
 
-  has_many :people
+  has_many :people, dependent: :destroy
 
-  validates :email, presence: true
+  validates :email, presence: true, uniqueness: true
   validates :password, presence: true
 
   # def password

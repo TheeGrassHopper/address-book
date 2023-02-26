@@ -1,13 +1,11 @@
 # frozen_string_literal: true
 
 class PhoneNumbersController < ApplicationController
-  before_action :set_phone_number, only: %i[show edit update destroy]
+  before_action :set_phone_number, only: %i[edit update destroy]
 
   def index
     @phone_numbers = PhoneNumber.all
   end
-
-  def show; end
 
   def new
     @phone_number = PhoneNumber.new

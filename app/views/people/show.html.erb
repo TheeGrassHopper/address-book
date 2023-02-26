@@ -68,7 +68,7 @@
         </p>
         <ol>
           <% @person.phone_numbers.each do |phone_number| %>
-            <li><%= phone_number.number %> | <%= link_to "Edit", edit_person_phone_number_path(@person, phone_number), class: "btn btn-sm btn-secondary" %> | <%= link_to "Delete", person_phone_numbers_path(@person, phone_number), method: :delete, data: { confirm: "Are you sure you want to delete this post?" }, class: "btn btn-sm btn-danger" %></li>
+            <li><%= phone_number.number %> | <%= link_to "Edit", edit_person_phone_number_path(@person, phone_number), class: "btn btn-sm btn-secondary" %> | <%= link_to "Delete", person_phone_number_path(@person, phone_number), method: :delete, data: { confirm: "Are you sure you want to delete this post?" }, class: "btn btn-sm btn-danger" %></li>
             <strong class="text-info">Comment: <%= phone_number.comment %></strong>
         <% end %>
         </ol>
