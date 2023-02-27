@@ -4,13 +4,12 @@ require 'rails_helper'
 require_relative '../helper/session_helper_spec'
 
 RSpec.describe(EmailsController, type: :request) do
-  let(:user) { FactoryBot.create(:user, role: "Admin") }
+  let(:user) { FactoryBot.create(:user, role: 'Admin') }
   let(:person) { FactoryBot.create(:person) }
-  
+
   before { login_user(user) }
 
   describe 'GET #index' do
-    
     it 'returns a success response' do
       get person_emails_path(person)
       expect(response).to(be_successful)
@@ -51,6 +50,18 @@ RSpec.describe(EmailsController, type: :request) do
         expect(JSON.parse(response.body)).to(include('email' => ['is not a valid email address']))
       end
     end
+
+    context 'when the user is non admin' do
+      let(:user) { FactoryBot.create(:user, role: 'guest') }
+      let!(:email) { FactoryBot.create(:email, person: person) }
+
+      it 'redirects to the person and flash error message' do
+        post(person_emails_path(person, email), params: { emails: { email: 'email@email.com' } })
+
+        expect(response).to(redirect_to(people_path))
+        expect(flash[:alert]).to(eq('You are not authorized to perform this action'))
+      end
+    end
   end
 
   describe 'PATCH #update' do
@@ -84,6 +95,22 @@ RSpec.describe(EmailsController, type: :request) do
       end.to(change(Email, :count).by(-1))
 
       expect(response).to(redirect_to(person_path(person)))
+    end
+  end
+
+  { update: 'PATCH', edit: 'PUT', destroy: 'DELETE' }.each do |action, verb|
+    let(:email) { FactoryBot.create(:email, person: person) }
+
+    describe "#{verb} #{action}" do
+      let(:user) { FactoryBot.create(:user, role: 'guest') }
+
+      context 'when the user is non admin' do
+        it 'redirects to the people page and flashs error message' do
+          send(verb.downcase, person_phone_number_path(person, email))
+          expect(response).to(redirect_to(people_path))
+          expect(flash[:alert]).to(eq('You are not authorized to perform this action'))
+        end
+      end
     end
   end
 end

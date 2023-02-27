@@ -57,6 +57,18 @@ RSpec.describe(PhoneNumbersController, type: :request) do
         expect(response).to(have_http_status(:unprocessable_entity))
       end
     end
+
+    context 'when the user is non admin' do
+      let(:user) { FactoryBot.create(:user, role: 'guest') }
+      let!(:phone_number) { FactoryBot.create(:phone_number, person: person) }
+
+      it 'redirects to the people page and flashs error message' do
+        post(person_phone_numbers_path(person, phone_number))
+
+        expect(response).to(redirect_to(people_path))
+        expect(flash[:alert]).to(eq('You are not authorized to perform this action'))
+      end
+    end
   end
 
   describe 'PATCH #update' do
@@ -91,6 +103,22 @@ RSpec.describe(PhoneNumbersController, type: :request) do
       end.to(change(PhoneNumber, :count).by(-1))
 
       expect(response).to(redirect_to(person_path(person)))
+    end
+  end
+
+  { update: 'PATCH', edit: 'PUT', destroy: 'DELETE' }.each do |action, verb|
+    let(:phone_number) { FactoryBot.create(:phone_number, person: person) }
+
+    describe "#{verb} #{action}" do
+      let(:user) { FactoryBot.create(:user, role: 'guest') }
+
+      context 'when the user is non admin' do
+        it 'redirects to the people page and flashs error message' do
+          send(verb.downcase, person_phone_number_path(person, phone_number))
+          expect(response).to(redirect_to(people_path))
+          expect(flash[:alert]).to(eq('You are not authorized to perform this action'))
+        end
+      end
     end
   end
 end

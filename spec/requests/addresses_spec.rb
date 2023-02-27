@@ -60,6 +60,18 @@ RSpec.describe(AddressesController, type: :request) do
         expect(response).to(have_http_status(:unprocessable_entity))
       end
     end
+
+    context 'when the user is non admin' do
+      let(:user) { FactoryBot.create(:user, role: 'guest') }
+      let!(:addresse) { FactoryBot.create(:address, person: person) }
+
+      it 'redirects to the person page and flashs error message' do
+        post(person_addresses_path(person, addresse), params: { address: valid_attributes })
+
+        expect(response).to(redirect_to(people_path))
+        expect(flash[:alert]).to(eq('You are not authorized to perform this action'))
+      end
+    end
   end
 
   describe 'PATCH #update' do
@@ -92,6 +104,22 @@ RSpec.describe(AddressesController, type: :request) do
         delete(person_address_path(person, address))
       end.to(change { Address.count }.by(-1))
       expect(response).to(redirect_to(person_path(person)))
+    end
+  end
+
+  { update: 'PATCH', edit: 'PUT', destroy: 'DELETE' }.each do |action, verb|
+    let(:address) { FactoryBot.create(:address, person: person) }
+
+    describe "#{verb} #{action}" do
+      let(:user) { FactoryBot.create(:user, role: 'guest') }
+
+      context 'when the user is non admin' do
+        it 'redirects to the person page and flashs error message' do
+          send(verb.downcase, person_address_path(person, address))
+          expect(response).to(redirect_to(people_path))
+          expect(flash[:alert]).to(eq('You are not authorized to perform this action'))
+        end
+      end
     end
   end
 end

@@ -16,23 +16,19 @@ ActiveStorage.start()
 
 
 $(document).ready(function() {
-  // Attach a click listener to a button with the ID 'my-button'
   $('#get-people').on('click', (function(event) {
     event.preventDefault();
-    // Make an API call when the button is c
     console.log("People button clicked")
     $.ajax({
       type: 'GET',
        dateType: 'json',
       url: '/people.json',
       success: function(data) {
-        // Handle the API response data here
         console.log('API call successful!');
         console.log(data);
         window.location.href = "/people.json"
       },
       error: function(jqXHR, textStatus, errorThrown) {
-        // Handle any errors that occur during the API call
         console.error('API call failed:', textStatus, errorThrown);
       }
     });
@@ -72,9 +68,17 @@ $(document).ready(function() {
         window.location.href = "/people";
       },
       error: function(jqXHR, textStatus, errorThrown) {
-        // Handle any errors that occur during the API call
         console.error('API call failed:', textStatus, errorThrown);
       }
     });
+  });
+
+
+  $('#ham-menu').on('click', function(event) {
+    if ($('#navbarNav').hasClass('show')) {
+      $('#navbarNav').removeClass('show');
+    } else {
+      $('#navbarNav').addClass('show');
+    }
   });
 });

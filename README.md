@@ -1,8 +1,8 @@
 # README
 
 This README would normally document whatever steps are necessary to get the
-application up and running.
-
+application up and running. I will also highlight some of the things I worked on.
+- Remote deployment: [https://address-book.herokuapp.com/]
 Things you may want to cover:
 
 ## System dependencies
@@ -30,28 +30,42 @@ Things you may want to cover:
 
 - rspec spec
 
+## How to run the app locally
+
+- rails server
+- `localhost:3000`
+
 ## Features:
 
-- Models: Person, Address, Email, Phone Number,
+- Models: User, Person, Address, Email, Phone Number.
 
-* active record relationships in place,
-* Validations in place
-* Styling although not the prettiest.
-* authorization ['Admin', 'Guest], Admin: can create, edit, destroy, update, show, Guest: can show, index - Authorization validations in place with flashing errors.
-* `Homer` with `homer@simpsons.com` with a `Admin` role and a password of `123456789`
-* `Marge` with `marge@simpsons.com` with a `Guest` role and a password of `987654321`
-* authentication
-* Testing `rspec spec`
+* Active record relationship one to many.
+* Validations in place. e.g on (email, ssn)
+* Bootstrap styling in place although not the prettiest, responsive.
+* Authorization: ['Admin', 'Guest] with flashing errors messages.
+  - Admin: can create, edit, destroy, update, show, index
+  - Guest: can show or index
+
+* Authentication
+  -  `Homer` with `homer@simpsons.com` with a `Admin` role and a password of `123456789`
+  -  `Marge` with `marge@simpsons.com` with a `Guest` role and a password of `987654321`
+  - Note a any wrong login credentials will flash appropriate error message.
+* Testing `rspec spec` or `bundle exec rspec spec`
 * AJAX
-  - Due to my personal time constraint I only able to implement two AJAX calls in `application.js`
-* Application should also work as an API and accept / send requests / responses via JSON. Using Postman
+  - Due to my personal time constraint I was only able to implement two AJAX calls in `application.js` but the idea is the same.
   - `get - /people` - `index`
-  - `get - people/10` - `show`
-  - `post PUT - people/10` - `create` take out the `id:` field 
-  - `put - people/10` - `update` need the `id:` field in the body
+  - `post - /people` - `create`
+* Application should also work as an API and accept / send requests / responses via JSON. I thought this could be achieved under one resource utilizing nested attributes.
+  - Using Postman
+  - `get - /people` - `index`
+  - `get - people/10` - `show` need the `id:`
+  - `post - /people` - `create`
+  - `put - people/10` - `update` need the `id:` field in the body for updates
   - `delete - people/10` - `destroy`
-  - Request body of with update the whole resource through the uses of nested attributes in rails e.g
+  - people's controller accepts nested attributes in the request body  e.g
 
+- `POST - /people`
+Request Body: 
 ```
 {
   "person": {
@@ -112,3 +126,7 @@ Things you may want to cover:
   }
 }
 ```
+
+I appreciate the opportunity and open to feedback. 
+Best Regards,
+Al    

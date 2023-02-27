@@ -70,6 +70,18 @@ RSpec.describe(PeopleController, type: :request) do
         end.to_not(change(Person, :count))
       end
     end
+
+    context 'when the user is non admin' do
+      let(:user) { FactoryBot.create(:user, role: 'guest') }
+      let!(:person) { FactoryBot.create(:person) }
+
+      it 'redirects to the people page and flashs error message' do
+        post(people_path(person), params: valid_params)
+
+        expect(response).to(redirect_to(people_path))
+        expect(flash[:alert]).to(eq('You are not authorized to perform this action'))
+      end
+    end
   end
 
   describe 'PATCH #update' do
@@ -105,6 +117,21 @@ RSpec.describe(PeopleController, type: :request) do
       expect do
         delete(person_path(person))
       end.to(change(Person, :count).by(-1))
+    end
+  end
+
+  { update: 'PATCH', edit: 'PUT', destroy: 'DELETE' }.each do |action, verb|
+    describe "#{verb} #{action}" do
+      let(:user) { FactoryBot.create(:user, role: 'guest') }
+      let(:person) { FactoryBot.create(:person) }
+
+      context 'when the user is non admin' do
+        it 'redirects to the people page and flashs error message' do
+          send(verb.downcase, person_path(person))
+          expect(response).to(redirect_to(people_path))
+          expect(flash[:alert]).to(eq('You are not authorized to perform this action'))
+        end
+      end
     end
   end
 end
