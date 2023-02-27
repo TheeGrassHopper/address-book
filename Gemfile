@@ -11,6 +11,7 @@ gem 'jquery-rails'
 gem 'popper_js'
 gem 'pry'
 gem 'rspec-rails'
+gem 'database_cleaner'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails', branch: 'main'
 gem 'rails', '~> 6.1.7', '>= 6.1.7.1'
@@ -32,6 +33,7 @@ gem 'jbuilder', '~> 2.7'
 # gem 'bcrypt', '~> 3.1.7'
 gem 'faker'
 # Use Active Storage variant
+gem 'rails-controller-testing'
 # gem 'image_processing', '~> 1.2'
 
 # Reduces boot times through caching; required in config/boot.rb

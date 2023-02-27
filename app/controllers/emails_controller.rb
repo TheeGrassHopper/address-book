@@ -46,6 +46,6 @@ class EmailsController < ApplicationController
   end
 
   def email_params
-    params.require(:email).permit(:email, :comment, :person_id)
+    params.require(:emails).permit(:email, :comment, :person_id)
   end
 end
